@@ -126,7 +126,6 @@ class ViewController: UIViewController {
         let value = sender.title(for: .normal)!
         
         if "0123456789".contains(value) {
-            
             if operation.isEmpty {
                 firstOperand += value
                 textField.text = firstOperand
@@ -136,17 +135,20 @@ class ViewController: UIViewController {
             }
             
         } else if "/*+-".contains(value) {
-            
             operation = value
             
-        } else if value == "=" {
+            if !secondOperand.isEmpty {
+                firstOperand = calculate(firstOperand, secondOperand, operation)
+                textField.text = firstOperand
+                secondOperand = ""
+            }
             
+        } else if value == "=" {
             firstOperand = calculate(firstOperand, secondOperand, operation)
             textField.text = firstOperand
             secondOperand = ""
             
         } else if value == "C" {
-            
             textField.text = ""
             operation = ""
             firstOperand = ""
