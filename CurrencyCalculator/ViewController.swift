@@ -50,10 +50,6 @@ class ViewController: UIViewController {
         createAndSetupButton(into: hStackView, withTitle: "=", color: .orange)
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        textField.text = ""
-    }
-    
     func buttonWidth() -> CGFloat {
         return (UIScreen.main.bounds.width - spacing * 5) / 4
     }
@@ -151,7 +147,10 @@ class ViewController: UIViewController {
             
         } else if value == "C" {
             
-            textFieldDidBeginEditing(textField: textField)
+            textField.text = ""
+            operation = ""
+            firstOperand = ""
+            secondOperand = ""
             
         }
     }
