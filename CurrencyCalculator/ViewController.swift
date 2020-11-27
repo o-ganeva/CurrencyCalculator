@@ -124,7 +124,10 @@ class ViewController: UIViewController {
     
     @objc func handler(sender: UIButton) {
         let value = sender.title(for: .normal)!
-        
+        handle(value)
+    }
+    
+    func handle(_ value: String) {
         if "0123456789".contains(value) {
             if operation.isEmpty {
                 firstOperand += value
