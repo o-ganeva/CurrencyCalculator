@@ -121,6 +121,7 @@ class ViewController: UIViewController {
     var operation = ""
     var firstOperand = ""
     var secondOperand = ""
+    var isPercentTapped = false
     
     @objc func handler(sender: UIButton) {
         let value = sender.title(for: .normal)!
@@ -130,9 +131,17 @@ class ViewController: UIViewController {
     func handle(_ value: String) {
         if "0123456789".contains(value) {
             if operation.isEmpty {
+                if isPercentTapped {
+                    isPercentTapped = false
+                    firstOperand = ""
+                }
                 firstOperand += value
                 textField.text = firstOperand
             } else {
+                if isPercentTapped {
+                    isPercentTapped = false
+                    secondOperand = ""
+                }
                 secondOperand += value
                 textField.text = secondOperand
             }
@@ -141,36 +150,78 @@ class ViewController: UIViewController {
             operation = value
             
             if !secondOperand.isEmpty {
-                firstOperand = calculate(firstOperand, secondOperand, operation)
+                firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
                 textField.text = firstOperand
                 secondOperand = ""
             }
             
         } else if value == "=" {
-            firstOperand = calculate(firstOperand, secondOperand, operation)
+            firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
             textField.text = firstOperand
+            operation = ""
             secondOperand = ""
             
         } else if value == "C" {
+//            TODO: Make AC
             textField.text = ""
             operation = ""
             firstOperand = ""
             secondOperand = ""
             
+        } else if value == "," {
+            if operation.isEmpty {
+                if !firstOperand.contains(value) {
+                    firstOperand += value
+                    textField.text = firstOperand
+                }
+            } else {
+                if !secondOperand.contains(value) {
+                    secondOperand += value
+                    textField.text = secondOperand
+                }
+            }
+        } else if value == "%" {
+            isPercentTapped = true
+            
+            if !firstOperand.isEmpty && operation.isEmpty {
+                firstOperand = (firstOperand.doubleValue / 100.0).stringValue
+                textField.text = firstOperand
+            } else if !secondOperand.isEmpty {
+                secondOperand = (firstOperand.doubleValue / 100.0 * secondOperand.doubleValue).stringValue
+                textField.text = secondOperand
+            }
         }
     }
     
-    func calculate(_ first: String, _ second: String, _ operation: String) -> String {
+    func calculate(_ first: Double, _ second: Double, _ operation: String) -> Double {
         if operation == "+" {
-            return String(Int(first)! + Int(second)!)
+            return first + second
         } else if operation == "-" {
-            return String(Int(first)! - Int(second)!)
+            return first - second
         } else if operation == "/" {
-            return String(Int(first)! / Int(second)!)
+            return first / second
         } else if operation == "*" {
-            return String(Int(first)! * Int(second)!)
+            return first * second
         } else {
             fatalError()
+        }
+    }
+}
+
+extension String {
+    var doubleValue: Double {
+        if self.isEmpty { return 0 }
+        return Double(self.replacingOccurrences(of: ",", with: "."))!
+    }
+}
+
+extension Double {
+    var stringValue: String {
+        if floor(self) == self {
+            return String(Int(self))
+        } else {
+            let s = String(format: "%.2f", self)
+            return s.replacingOccurrences(of: ".", with: ",")
         }
     }
 }
