@@ -8,6 +8,13 @@
 import UIKit
 import SnapKit
 
+enum Operation: String {
+    case add = "+"
+    case subtract = "-"
+    case multiply = "*"
+    case divide = "/"
+}
+
 class ViewController: UIViewController {
     
     let spacing: CGFloat = 8
@@ -117,7 +124,7 @@ class ViewController: UIViewController {
         return button
     }
     
-    var operation = "+"
+    var operation: Operation = .add
     var firstOperand = ""
     var secondOperand = ""
     
@@ -134,19 +141,19 @@ class ViewController: UIViewController {
         } else if "/*+-".contains(value) {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
             textField.text = firstOperand
-            operation = value
+            operation = Operation(rawValue: value)!
             secondOperand = ""
             
         } else if value == "=" {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
             textField.text = firstOperand
-            operation = "+"
+            operation = .add
             secondOperand = ""
             
         } else if value == "C" {
 //            TODO: Make AC
             textField.text = "0"
-            operation = "+"
+            operation = .add
             firstOperand = ""
             secondOperand = ""
             
@@ -171,17 +178,16 @@ class ViewController: UIViewController {
         }
     }
     
-    func calculate(_ first: Double, _ second: Double, _ operation: String) -> Double {
-        if operation == "+" {
+    func calculate(_ first: Double, _ second: Double, _ operation: Operation) -> Double {
+        switch operation {
+        case .add:
             return first + second
-        } else if operation == "-" {
+        case .subtract:
             return first - second
-        } else if operation == "/" {
-            return first / second
-        } else if operation == "*" {
+        case .multiply:
             return first * second
-        } else {
-            fatalError()
+        case .divide:
+            return first / second
         }
     }
 }
