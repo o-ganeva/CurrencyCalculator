@@ -120,9 +120,6 @@ class ViewController: UIViewController {
     var operation = "+"
     var firstOperand = ""
     var secondOperand = ""
-    var commaCount = 0
-    var isPercentTapped = false
-    var isOperationTapped = false
     
     @objc func handler(sender: UIButton) {
         let value = sender.title(for: .normal)!
@@ -135,12 +132,10 @@ class ViewController: UIViewController {
             textField.text = secondOperand
             
         } else if "/*+-".contains(value) {
-            isOperationTapped = true
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
             textField.text = firstOperand
             operation = value
             secondOperand = ""
-        
             
         } else if value == "=" {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
@@ -156,25 +151,23 @@ class ViewController: UIViewController {
             secondOperand = ""
             
         } else if value == "," {
-            if secondOperand.contains(",") {
-                return
-            } else {
-                if secondOperand == "" {
-                    secondOperand = (0).stringValue
+            if !secondOperand.contains(",") {
+                if secondOperand.isEmpty {
+                    secondOperand = "0"
                 }
                 secondOperand += value
                 textField.text = secondOperand
             }
             
         } else if value == "%" {
-            if !secondOperand.isEmpty && isOperationTapped == true {
-                isOperationTapped = false
-                secondOperand = (firstOperand.doubleValue / 100.0 * secondOperand.doubleValue).stringValue
-                textField.text = secondOperand
-            } else if !secondOperand.isEmpty {
+            if secondOperand.isEmpty { return }
+            
+            if firstOperand.isEmpty {
                 secondOperand = (secondOperand.doubleValue / 100).stringValue
-                textField.text = secondOperand
+            } else {
+                secondOperand = (firstOperand.doubleValue / 100.0 * secondOperand.doubleValue).stringValue
             }
+            textField.text = secondOperand
         }
     }
     
