@@ -55,6 +55,7 @@ class ViewController: UIViewController {
     }
     
     func setupTextField(into stackView: UIStackView) {
+        textField.text = "0"
         textField.font = .systemFont(ofSize: 60)
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 40
@@ -116,12 +117,12 @@ class ViewController: UIViewController {
         return button
     }
     
-    ///
-    
-    var operation = ""
+    var operation = "+"
     var firstOperand = ""
     var secondOperand = ""
+    var commaCount = 0
     var isPercentTapped = false
+    var isOperationTapped = false
     
     @objc func handler(sender: UIButton) {
         let value = sender.title(for: .normal)!
@@ -130,64 +131,48 @@ class ViewController: UIViewController {
     
     func handle(_ value: String) {
         if "0123456789".contains(value) {
-            if operation.isEmpty {
-                if isPercentTapped {
-                    isPercentTapped = false
-                    firstOperand = ""
-                }
-                firstOperand += value
-                textField.text = firstOperand
+            secondOperand += value
+            textField.text = secondOperand
+            
+        } else if "/*+-".contains(value) {
+            isOperationTapped = true
+            firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
+            textField.text = firstOperand
+            operation = value
+            secondOperand = ""
+        
+            
+        } else if value == "=" {
+            firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
+            textField.text = firstOperand
+            operation = "+"
+            secondOperand = ""
+            
+        } else if value == "C" {
+//            TODO: Make AC
+            textField.text = "0"
+            operation = "+"
+            firstOperand = ""
+            secondOperand = ""
+            
+        } else if value == "," {
+            if secondOperand.contains(",") {
+                return
             } else {
-                if isPercentTapped {
-                    isPercentTapped = false
-                    secondOperand = ""
+                if secondOperand == "" {
+                    secondOperand = (0).stringValue
                 }
                 secondOperand += value
                 textField.text = secondOperand
             }
             
-        } else if "/*+-".contains(value) {
-            operation = value
-            
-            if !secondOperand.isEmpty {
-                firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
-                textField.text = firstOperand
-                secondOperand = ""
-            }
-            
-        } else if value == "=" {
-            firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
-            textField.text = firstOperand
-            operation = ""
-            secondOperand = ""
-            
-        } else if value == "C" {
-//            TODO: Make AC
-            textField.text = ""
-            operation = ""
-            firstOperand = ""
-            secondOperand = ""
-            
-        } else if value == "," {
-            if operation.isEmpty {
-                if !firstOperand.contains(value) {
-                    firstOperand += value
-                    textField.text = firstOperand
-                }
-            } else {
-                if !secondOperand.contains(value) {
-                    secondOperand += value
-                    textField.text = secondOperand
-                }
-            }
         } else if value == "%" {
-            isPercentTapped = true
-            
-            if !firstOperand.isEmpty && operation.isEmpty {
-                firstOperand = (firstOperand.doubleValue / 100.0).stringValue
-                textField.text = firstOperand
-            } else if !secondOperand.isEmpty {
+            if !secondOperand.isEmpty && isOperationTapped == true {
+                isOperationTapped = false
                 secondOperand = (firstOperand.doubleValue / 100.0 * secondOperand.doubleValue).stringValue
+                textField.text = secondOperand
+            } else if !secondOperand.isEmpty {
+                secondOperand = (secondOperand.doubleValue / 100).stringValue
                 textField.text = secondOperand
             }
         }
@@ -210,21 +195,20 @@ class ViewController: UIViewController {
 
 extension String {
     var doubleValue: Double {
-        if self.isEmpty { return 0 }
+        if self.isEmpty || self == "Ошибка"  { return 0 }
         return Double(self.replacingOccurrences(of: ",", with: "."))!
     }
 }
 
 extension Double {
     var stringValue: String {
-        if floor(self) == self {
+        if self.isInfinite {
+            return "Ошибка"
+        } else if floor(self) == self {
             return String(Int(self))
         } else {
-            let s = String(format: "%.2f", self)
+            let s = String(format: "%g", self)
             return s.replacingOccurrences(of: ".", with: ",")
         }
     }
 }
-
-
-
