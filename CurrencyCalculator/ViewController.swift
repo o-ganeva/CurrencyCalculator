@@ -19,37 +19,50 @@ class ViewController: UIViewController {
     
     let spacing: CGFloat = 8
     let textField = UITextField()
+    let currencyTextField = UITextField()
+    var currency: Currency?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
+        
+        fromRubToUsd()
         
         let vStackView = createAndSetupVStackView()
         let upperStackView = createAndSetupUpperStackView(stackView: vStackView)
-        let hCurrencyStackView = createAndSetupHCurrencyStackView(into: upperStackView)
-        let hCurrencyStackView2 = createAndSetupHCurrencyStackView(into: upperStackView)
-        createAndSetupVCurrencyStackView(into: hCurrencyStackView, imageName: "RUB", text: "RUB")
-        createAndSetupVCurrencyStackView(into: hCurrencyStackView2, imageName: "USD", text: "USD")
+//        let hCurrencyStackView = createAndSetupHCurrencyStackView(into: upperStackView)
+//        let hCurrencyStackView2 = createAndSetupHCurrencyStackView(into: upperStackView)
+//        createAndSetupVCurrencyStackView(into: hCurrencyStackView, imageName: "RUB", text: "RUB")
+//        createAndSetupVCurrencyStackView(into: hCurrencyStackView2, imageName: "USD", text: "USD")
         
+        let inLabel = UILabel()
+        inLabel.text = "RUB"
+        inLabel.textColor = .gray
+        inLabel.font = .systemFont(ofSize: 18)
+        inLabel.textAlignment = .right
+        upperStackView.addArrangedSubview(inLabel)
         
+        setupTextField(into: upperStackView)
         
-        setupTextField(into: hCurrencyStackView)
+        let outLabel = UILabel()
+        outLabel.text = "USD"
+        outLabel.textColor = .gray
+        outLabel.font = .systemFont(ofSize: 18)
+        outLabel.textAlignment = .right
+        upperStackView.addArrangedSubview(outLabel)
         
-        let currencyTextField = UITextField()
-        currencyTextField.text = "1"
+        currencyTextField.text = "0"
+        currencyTextField.textColor = .white
         currencyTextField.font = .systemFont(ofSize: 60)
         currencyTextField.adjustsFontSizeToFitWidth = true
         currencyTextField.minimumFontSize = 40
         currencyTextField.textAlignment = .right
-        hCurrencyStackView2.addArrangedSubview(currencyTextField)
-        
-//        let rubImageView = UIImageView(image: UIImage(named: "RUB"))
-//        rubImageView.snp.makeConstraints {
-//
-//        }
+        upperStackView.addArrangedSubview(currencyTextField)
         
         var hStackView = createAndSetupHStackView(into: vStackView)
         createAndSetupButton(into: hStackView, withTitle: "C", color: .lightGray)
-        createAndSetupButton(into: hStackView, withTitle: "+/-", color: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "􀄬", color: .lightGray)
         createAndSetupButton(into: hStackView, withTitle: "%", color: .lightGray)
         createAndSetupButton(into: hStackView, withTitle: "/", color: .orange)
         
@@ -83,6 +96,7 @@ class ViewController: UIViewController {
     
     func setupTextField(into stackView: UIStackView) {
         textField.text = "0"
+        textField.textColor = .white
         textField.font = .systemFont(ofSize: 60)
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 40
@@ -90,45 +104,50 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(textField)
     }
     
-    func createAndSetupVCurrencyStackView(into stackView: UIStackView, imageName: String, text: String) {
-        let vCurrencyStackView = UIStackView()
-        let currencyImageView = UIImageView(image: UIImage(named: imageName))
-        let currencyLabel = UILabel()
-        currencyLabel.text = text
-        currencyLabel.font = .systemFont(ofSize: 16)
-        currencyLabel.textAlignment = .center
-        vCurrencyStackView.addArrangedSubview(currencyImageView)
-        vCurrencyStackView.addArrangedSubview(currencyLabel)
-        vCurrencyStackView.axis = .vertical
-        vCurrencyStackView.spacing = 2
-        stackView.addArrangedSubview(vCurrencyStackView)
-        vCurrencyStackView.snp.makeConstraints {
-            $0.width.equalTo(40)
-        }
-        currencyImageView.snp.makeConstraints {
-            $0.height.equalTo(40)
-        }
-    }
     
-    func createAndSetupHCurrencyStackView(into stackView: UIStackView) -> UIStackView {
-        let hCurrencyStackView = UIStackView()
-        hCurrencyStackView.axis = .horizontal
-        hCurrencyStackView.spacing = 16
-        hCurrencyStackView.alignment = .center
-        stackView.addArrangedSubview(hCurrencyStackView)
-        return hCurrencyStackView
-    }
+//    ФУНКЦИЯ ДЛЯ СОЗДАНИЯ КАРТИНКИ С ФЛАГОМ СТРАНЫ И ПОДПИСЬЮ
+//
+//    func createAndSetupVCurrencyStackView(into stackView: UIStackView, imageName: String, text: String) {
+//        let vCurrencyStackView = UIStackView()
+//        let currencyImageView = UIImageView(image: UIImage(named: imageName))
+//        let currencyLabel = UILabel()
+//        currencyLabel.text = text
+//        currencyLabel.font = .systemFont(ofSize: 16)
+//        currencyLabel.textAlignment = .center
+//        vCurrencyStackView.addArrangedSubview(currencyImageView)
+//        vCurrencyStackView.addArrangedSubview(currencyLabel)
+//        vCurrencyStackView.axis = .vertical
+//        vCurrencyStackView.spacing = 2
+//        stackView.addArrangedSubview(vCurrencyStackView)
+//        vCurrencyStackView.snp.makeConstraints {
+//            $0.width.equalTo(40)
+//        }
+//        currencyImageView.snp.makeConstraints {
+//            $0.height.equalTo(40)
+//        }
+//    }
+    
+//    ФУНКЦИЯ ДЛЯ СЛИЯНИЯ ВЕРТИКАЛЬНОГО СТЕКВЬЮ С КАРТИНКОЙ С ТЕКСТФИЛДОМ
+//
+//    func createAndSetupHCurrencyStackView(into stackView: UIStackView) -> UIStackView {
+//        let hCurrencyStackView = UIStackView()
+//        hCurrencyStackView.axis = .horizontal
+//        hCurrencyStackView.spacing = 16
+//        hCurrencyStackView.alignment = .center
+//        stackView.addArrangedSubview(hCurrencyStackView)
+//        return hCurrencyStackView
+//    }
     
     func createAndSetupUpperStackView(stackView: UIStackView) -> UIStackView {
         let upperStackView = UIStackView()
         upperStackView.axis = .vertical
-        upperStackView.distribution = .fillEqually
+        upperStackView.distribution = .fill
         view.addSubview(upperStackView)
         upperStackView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(spacing)
             $0.bottom.equalTo(stackView.snp.top)
-            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(spacing)
-//            $0.height.equalTo(144)
+//            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(spacing)
+            $0.height.equalTo(188)
         }
         return upperStackView
     }
@@ -212,6 +231,7 @@ class ViewController: UIViewController {
             textField.text = firstOperand
             operation = .add
             secondOperand = ""
+            currencyTextField.text = (firstOperand.doubleValue * currency!.rates.USD).stringValue
             
         } else if value == "C" {
 //            TODO: Make AC
@@ -253,6 +273,32 @@ class ViewController: UIViewController {
             return first / second
         }
     }
+    
+    func fromRubToUsd() {
+        let url = URL(string: "https://api.exchangeratesapi.io/latest?base=RUB&symbols=USD")!
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else { return }
+
+            let decoder = JSONDecoder()
+            if let currency = try? decoder.decode(Currency.self, from: data) {
+                self.currency = currency
+                print(currency.base, currency.rates.USD)
+            }
+
+        }
+        
+        task.resume()
+    }
+}
+
+struct Currency: Decodable {
+    var rates: Rates
+    var base: String
+}
+
+struct Rates: Decodable {
+    var USD: Double
 }
 
 extension String {
