@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19097A6D258A247700AE23E2 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19097A6C258A247700AE23E2 /* SF-Pro.ttf */; };
 		19332384255327F900827FAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19332383255327F900827FAB /* AppDelegate.swift */; };
 		19332388255327F900827FAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19332387255327F900827FAB /* ViewController.swift */; };
 		1933238B255327F900827FAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19332389255327F900827FAB /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19097A6C258A247700AE23E2 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		19332380255327F900827FAB /* CurrencyCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19332383255327F900827FAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19332387255327F900827FAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19097A63258A236100AE23E2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				19097A6C258A247700AE23E2 /* SF-Pro.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		19332377255327F900827FAB = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +126,7 @@
 		19332382255327F900827FAB /* CurrencyCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				19097A63258A236100AE23E2 /* Fonts */,
 				19332383255327F900827FAB /* AppDelegate.swift */,
 				19332387255327F900827FAB /* ViewController.swift */,
 				19332389255327F900827FAB /* Main.storyboard */,
@@ -277,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19332393255327FB00827FAB /* LaunchScreen.storyboard in Resources */,
+				19097A6D258A247700AE23E2 /* SF-Pro.ttf in Resources */,
 				19332390255327FB00827FAB /* Assets.xcassets in Resources */,
 				1933238B255327F900827FAB /* Main.storyboard in Resources */,
 			);
