@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 enum Operation: String {
-    case add = "+"
-    case subtract = "-"
-    case multiply = "*"
-    case divide = "/"
+    case add = "􀅼"
+    case subtract = "􀅽"
+    case multiply = "􀅾"
+    case divide = "􀅿"
 }
 
 class ViewController: UIViewController {
@@ -27,10 +27,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
+//        for family in UIFont.familyNames.sorted() {
+//            let names = UIFont.fontNames(forFamilyName: family)
+//            print("Family: \(family) Font names: \(names)")
+//        }
         
         fromRubToUsd()
         
@@ -209,7 +209,6 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = buttonWidth() / 2
         button.titleLabel?.font = UIFont(name: font, size: fontSize)
-        //button.titleLabel?.textColor = fontColor
         button.setTitleColor(titleColor, for: .normal)
         button.setTitle(title, for: .normal)
         button.backgroundColor = color
@@ -228,17 +227,20 @@ class ViewController: UIViewController {
     
     func handle(_ value: String) {
         if "0123456789".contains(value) {
+            if value == "0" && secondOperand.isEmpty {
+                return
+            }
             secondOperand += value
             textField.text = secondOperand
             currencyTextField.text = (secondOperand.doubleValue * currency!.rates.USD).stringValue
             
-        } else if "/*+-".contains(value) {
+        } else if "􀅿􀅾􀅼􀅽".contains(value) {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
             textField.text = firstOperand
             operation = Operation(rawValue: value)!
             secondOperand = ""
             
-        } else if value == "=" {
+        } else if value == "􀆀" {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
             textField.text = firstOperand
             operation = .add
@@ -262,7 +264,7 @@ class ViewController: UIViewController {
                 textField.text = secondOperand
             }
             
-        } else if value == "%" {
+        } else if value == "􀘾" {
             if secondOperand.isEmpty { return }
             
             if firstOperand.isEmpty {
