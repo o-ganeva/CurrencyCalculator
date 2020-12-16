@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     let textField = UITextField()
     let currencyTextField = UITextField()
     var currency: Currency?
+    let charaterLimit = 10
     
     
     override func viewDidLoad() {
@@ -230,6 +231,9 @@ class ViewController: UIViewController {
             if value == "0" && secondOperand.isEmpty {
                 return
             }
+            if secondOperand.count > 10 {
+                return
+            }
             secondOperand += value
             textField.text = secondOperand
             currencyTextField.text = (secondOperand.doubleValue * currency!.rates.USD).stringValue
@@ -274,6 +278,7 @@ class ViewController: UIViewController {
             }
             textField.text = secondOperand
         }
+        
     }
     
     func calculate(_ first: Double, _ second: Double, _ operation: Operation) -> Double {
