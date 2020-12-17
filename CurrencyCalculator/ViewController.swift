@@ -235,7 +235,7 @@ class ViewController: UIViewController {
                 return
             }
             secondOperand += value
-            textField.text = secondOperand
+            textField.text = spacingFormat(secondOperand)
             currencyTextField.text = (secondOperand.doubleValue * currency!.rates.USD).stringValue
             
         } else if "􀅿􀅾􀅼􀅽".contains(value) {
@@ -309,6 +309,19 @@ class ViewController: UIViewController {
         }
         
         task.resume()
+    }
+    
+    func spacingFormat(_ unformatted: String) -> String {
+        var formatted = ""
+        
+        unformatted.reversed().enumerated().forEach { item in
+            if item.offset % 3 == 0 && item.offset != 0 {
+                formatted = String(item.element) + " " + formatted
+            } else {
+                formatted = String(item.element) + formatted
+            }
+        }
+        return formatted
     }
 }
 
