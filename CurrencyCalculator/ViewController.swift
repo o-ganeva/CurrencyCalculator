@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     let currencyTextField = UITextField()
     var currency: Currency?
     let charaterLimit = 10
+    var inLabel = UILabel()
+    var outLabel = UILabel()
+    var isRubActive = true
     
     
     override func viewDidLoad() {
@@ -42,7 +45,6 @@ class ViewController: UIViewController {
 //        createAndSetupVCurrencyStackView(into: hCurrencyStackView, imageName: "RUB", text: "RUB")
 //        createAndSetupVCurrencyStackView(into: hCurrencyStackView2, imageName: "USD", text: "USD")
         
-        let inLabel = UILabel()
         inLabel.text = "RUB"
         inLabel.textColor = .gray
         inLabel.font = .systemFont(ofSize: 18)
@@ -51,7 +53,6 @@ class ViewController: UIViewController {
         
         setupTextField(into: upperStackView)
         
-        let outLabel = UILabel()
         outLabel.text = "USD"
         outLabel.textColor = .gray
         outLabel.font = .systemFont(ofSize: 18)
@@ -236,7 +237,12 @@ class ViewController: UIViewController {
             }
             secondOperand += value
             textField.text = spacingFormat(secondOperand)
-            currencyTextField.text = (secondOperand.doubleValue * currency!.rates.USD).stringValue
+            if isRubActive {
+                currencyTextField.text = spacingFormat((textField.text!.doubleValue * currency!.rates.USD).stringValue)
+            } else {
+                currencyTextField.text = spacingFormat((textField.text!.doubleValue / currency!.rates.USD).stringValue)
+            }
+            //currencyTextField.text = (secondOperand.doubleValue * currency!.rates.USD).stringValue
             
         } else if "􀅿􀅾􀅼􀅽".contains(value) {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
@@ -249,7 +255,12 @@ class ViewController: UIViewController {
             textField.text = firstOperand
             operation = .add
             secondOperand = ""
-            currencyTextField.text = (firstOperand.doubleValue * currency!.rates.USD).stringValue
+            if isRubActive {
+                currencyTextField.text = spacingFormat((textField.text!.doubleValue * currency!.rates.USD).stringValue)
+            } else {
+                currencyTextField.text = spacingFormat((textField.text!.doubleValue / currency!.rates.USD).stringValue)
+            }
+            //currencyTextField.text = (firstOperand.doubleValue * currency!.rates.USD).stringValue
             
         } else if value == "C" {
 //            TODO: Make AC
@@ -277,6 +288,9 @@ class ViewController: UIViewController {
                 secondOperand = (firstOperand.doubleValue / 100.0 * secondOperand.doubleValue).stringValue
             }
             textField.text = secondOperand
+            
+        } else if value == "􀄬" {
+            switchField()
         }
         
     }
@@ -323,6 +337,19 @@ class ViewController: UIViewController {
         }
         return formatted
     }
+    
+    func switchField() {
+        isRubActive.toggle()
+        if isRubActive {
+            inLabel.text = "RUB"
+            outLabel.text = "USD"
+            currencyTextField.text = spacingFormat((textField.text!.doubleValue * currency!.rates.USD).stringValue)
+        } else {
+            inLabel.text = "USD"
+            outLabel.text = "RUB"
+            currencyTextField.text = spacingFormat((textField.text!.doubleValue / currency!.rates.USD).stringValue)
+        }
+    }
 }
 
 struct Currency: Decodable {
@@ -337,7 +364,7 @@ struct Rates: Decodable {
 extension String {
     var doubleValue: Double {
         if self.isEmpty || self == "Ошибка"  { return 0 }
-        return Double(self.replacingOccurrences(of: ",", with: "."))!
+        return Double(self.replacingOccurrences(of: ",", with: ".").replacingOccurrences(of: " ", with: ""))!
     }
 }
 
@@ -348,7 +375,7 @@ extension Double {
         } else if floor(self) == self {
             return String(Int(self))
         } else {
-            let s = String(format: "%g", self)
+            let s = String(format: "%0.2f", self)
             return s.replacingOccurrences(of: ".", with: ",")
         }
     }
