@@ -53,6 +53,9 @@ class ViewController: UIViewController {
         inLabel.textColor = .gray
         inLabel.font = .systemFont(ofSize: 18)
         inLabel.textAlignment = .right
+        inLabel.snp.makeConstraints {
+            $0.height.equalTo(20)
+        }
         upperStackView.addArrangedSubview(inLabel)
         
         setupTextField(into: upperStackView)
@@ -61,6 +64,9 @@ class ViewController: UIViewController {
         outLabel.textColor = .gray
         outLabel.font = .systemFont(ofSize: 18)
         outLabel.textAlignment = .right
+        outLabel.snp.makeConstraints {
+            $0.height.equalTo(20)
+        }
         upperStackView.addArrangedSubview(outLabel)
         
         currencyTextField.text = "0"
@@ -69,6 +75,9 @@ class ViewController: UIViewController {
         currencyTextField.adjustsFontSizeToFitWidth = true
         currencyTextField.minimumFontSize = 40
         currencyTextField.textAlignment = .right
+        currencyTextField.snp.makeConstraints {
+            $0.height.equalTo(55)
+        }
         upperStackView.addArrangedSubview(currencyTextField)
         
         
@@ -114,6 +123,9 @@ class ViewController: UIViewController {
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 40
         textField.textAlignment = .right
+        textField.snp.makeConstraints {
+            $0.height.equalTo(70)
+        }
         stackView.addArrangedSubview(textField)
     }
     
@@ -159,8 +171,8 @@ class ViewController: UIViewController {
         upperStackView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(spacing)
             $0.bottom.equalTo(stackView.snp.top).offset(-16)
-//            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(spacing)
-            $0.height.equalTo(188)
+            //$0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(spacing)
+            //$0.height.equalTo(188)
         }
         return upperStackView
     }
