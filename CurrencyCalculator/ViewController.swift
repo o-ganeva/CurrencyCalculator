@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     let charaterLimit = 10
     var inLabel = UILabel()
     var outLabel = UILabel()
-    var isRubActive = true
+    var isRubActive = false
     
     
     override func viewDidLoad() {
@@ -48,8 +48,8 @@ class ViewController: UIViewController {
 //        let hCurrencyStackView2 = createAndSetupHCurrencyStackView(into: upperStackView)
 //        createAndSetupVCurrencyStackView(into: hCurrencyStackView, imageName: "RUB", text: "RUB")
 //        createAndSetupVCurrencyStackView(into: hCurrencyStackView2, imageName: "USD", text: "USD")
-        
-        inLabel.text = "RUB"
+       
+        inLabel.text = "USD"
         inLabel.textColor = .gray
         inLabel.font = .systemFont(ofSize: 18)
         inLabel.textAlignment = .right
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         
         setupTextField(into: upperStackView)
         
-        outLabel.text = "USD"
+        outLabel.text = "RUB"
         outLabel.textColor = .gray
         outLabel.font = .systemFont(ofSize: 18)
         outLabel.textAlignment = .right
@@ -70,6 +70,8 @@ class ViewController: UIViewController {
         currencyTextField.minimumFontSize = 40
         currencyTextField.textAlignment = .right
         upperStackView.addArrangedSubview(currencyTextField)
+        
+        
         
         var hStackView = createAndSetupHStackView(into: vStackView)
         createAndSetupButton(into: hStackView, withTitle: "C", color: .lightGray, font: "SFPro-Medium", fontSize: 35, titleColor: .black, colorOfTap: .white)
@@ -284,7 +286,7 @@ class ViewController: UIViewController {
                     secondOperand = "0"
                 }
                 secondOperand += value
-                textField.text = secondOperand
+                textField.text = spacingFormat(secondOperand)
             }
             
         } else if value == "􀘾" {
@@ -333,10 +335,35 @@ class ViewController: UIViewController {
         task.resume()
     }
     
+//    func spacingFormat(_ unformatted: String) -> String {
+//        var formatted = ""
+//
+//        unformatted.reversed().enumerated().forEach { item in
+//            if item.offset % 3 == 0 && item.offset != 0 {
+//                formatted = String(item.element) + " " + formatted
+//            } else {
+//                formatted = String(item.element) + formatted
+//            }
+//        }
+//        return formatted
+//    }
+    
     func spacingFormat(_ unformatted: String) -> String {
+        var toFormat = ""
         var formatted = ""
         
-        unformatted.reversed().enumerated().forEach { item in
+        if unformatted.contains(",") {
+            let components = unformatted.split(separator: ",").map { String($0) }
+            toFormat = components[0]
+            formatted = ","
+            if components.count > 1 {
+                formatted += components[1]
+            }
+        } else {
+            toFormat = unformatted
+        }
+
+        toFormat.reversed().enumerated().forEach { item in
             if item.offset % 3 == 0 && item.offset != 0 {
                 formatted = String(item.element) + " " + formatted
             } else {
