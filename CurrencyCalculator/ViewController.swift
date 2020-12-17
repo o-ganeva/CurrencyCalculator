@@ -17,6 +17,10 @@ enum Operation: String {
 
 class ViewController: UIViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+          return .lightContent
+    }
+    
     let spacing: CGFloat = 12
     let textField = UITextField()
     let currencyTextField = UITextField()
@@ -61,40 +65,40 @@ class ViewController: UIViewController {
         
         currencyTextField.text = "0"
         currencyTextField.textColor = .white
-        currencyTextField.font = .systemFont(ofSize: 60)
+        currencyTextField.font = .systemFont(ofSize: 50)
         currencyTextField.adjustsFontSizeToFitWidth = true
         currencyTextField.minimumFontSize = 40
         currencyTextField.textAlignment = .right
         upperStackView.addArrangedSubview(currencyTextField)
         
         var hStackView = createAndSetupHStackView(into: vStackView)
-        createAndSetupButton(into: hStackView, withTitle: "C", color: .lightGray, font: "SFPro-Regular", fontSize: 35, titleColor: .black)
-        createAndSetupButton(into: hStackView, withTitle: "􀄬", color: .lightGray, font: "SFPro-Medium", fontSize: 30, titleColor: .black)
-        createAndSetupButton(into: hStackView, withTitle: "􀘾", color: .lightGray, font: "SFPro-Medium", fontSize: 28, titleColor: .black)
-        createAndSetupButton(into: hStackView, withTitle: "􀅿", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white)
+        createAndSetupButton(into: hStackView, withTitle: "C", color: .lightGray, font: "SFPro-Medium", fontSize: 35, titleColor: .black, colorOfTap: .white)
+        createAndSetupButton(into: hStackView, withTitle: "􀄬", color: .lightGray, font: "SFPro-Medium", fontSize: 30, titleColor: .black, colorOfTap: .white)
+        createAndSetupButton(into: hStackView, withTitle: "􀘾", color: .lightGray, font: "SFPro-Semibold", fontSize: 28, titleColor: .black, colorOfTap: .white)
+        createAndSetupButton(into: hStackView, withTitle: "􀅿", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white, colorOfTap: UIColor(red: 241.0 / 255.0, green: 163 / 255.0, blue: 59 / 255.0, alpha: 1))
         
         hStackView = createAndSetupHStackView(into: vStackView)
-        createAndSetupButton(into: hStackView, withTitle: "7", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "8", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "9", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "􀅾", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white)
+        createAndSetupButton(into: hStackView, withTitle: "7", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "8", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "9", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "􀅾", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white, colorOfTap: UIColor(red: 241.0 / 255.0, green: 163 / 255.0, blue: 59 / 255.0, alpha: 1))
         
         hStackView = createAndSetupHStackView(into: vStackView)
-        createAndSetupButton(into: hStackView, withTitle: "4", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "5", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "6", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "􀅽", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white)
+        createAndSetupButton(into: hStackView, withTitle: "4", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "5", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "6", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "􀅽", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white, colorOfTap: UIColor(red: 241.0 / 255.0, green: 163 / 255.0, blue: 59 / 255.0, alpha: 1))
         
         hStackView = createAndSetupHStackView(into: vStackView)
-        createAndSetupButton(into: hStackView, withTitle: "1", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "2", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "3", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "􀅼", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white)
+        createAndSetupButton(into: hStackView, withTitle: "1", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "2", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "3", color: .darkGray, font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: "􀅼", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white, colorOfTap: UIColor(red: 241.0 / 255.0, green: 163 / 255.0, blue: 59 / 255.0, alpha: 1))
         
         hStackView = createAndSetupHStackView(into: vStackView)
-        createAndSetupDoubleButton(into: hStackView, withTitle: "0", color: UIColor(red: 80.0 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1), font: "SFPro-Regular", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: ",", color: UIColor(red: 80.0 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 40, titleColor: .white)
-        createAndSetupButton(into: hStackView, withTitle: "􀆀", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white)
+        createAndSetupDoubleButton(into: hStackView, withTitle: "0", color: UIColor(red: 80.0 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1), font: "SFPro-Regular", fontSize: 40, titleColor: .white, colorOfTap: .lightGray)
+        createAndSetupButton(into: hStackView, withTitle: ",", color: UIColor(red: 80.0 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 40, titleColor: .white, colorOfTap: .white)
+        createAndSetupButton(into: hStackView, withTitle: "􀆀", color: UIColor(red: 255.0 / 255.0, green: 149 / 255.0, blue: 0 / 255.0, alpha: 1), font: "SFPro-Medium", fontSize: 30, titleColor: .white, colorOfTap: UIColor(red: 241.0 / 255.0, green: 163 / 255.0, blue: 59 / 255.0, alpha: 1))
     }
     
     func buttonWidth() -> CGFloat {
@@ -104,7 +108,7 @@ class ViewController: UIViewController {
     func setupTextField(into stackView: UIStackView) {
         textField.text = "0"
         textField.textColor = .white
-        textField.font = .systemFont(ofSize: 60)
+        textField.font = .systemFont(ofSize: 65)
         textField.adjustsFontSizeToFitWidth = true
         textField.minimumFontSize = 40
         textField.textAlignment = .right
@@ -152,7 +156,7 @@ class ViewController: UIViewController {
         view.addSubview(upperStackView)
         upperStackView.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(spacing)
-            $0.bottom.equalTo(stackView.snp.top)
+            $0.bottom.equalTo(stackView.snp.top).offset(-16)
 //            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(spacing)
             $0.height.equalTo(188)
         }
@@ -182,17 +186,18 @@ class ViewController: UIViewController {
         return hStackView
     }
     
-    func createAndSetupButton(into stackView: UIStackView, withTitle title: String, color: UIColor, font: String, fontSize: CGFloat, titleColor: UIColor) {
-        let button = createButton(withTitle: title, color: color, font: font, fontSize: fontSize, titleColor: titleColor)
+    func createAndSetupButton(into stackView: UIStackView, withTitle title: String, color: UIColor, font: String, fontSize: CGFloat, titleColor: UIColor, colorOfTap: UIColor) {
+        let button = createButton(withTitle: title, color: color, font: font, fontSize: fontSize, titleColor: titleColor, colorOfTap: colorOfTap)
         stackView.addArrangedSubview(button)
         button.snp.makeConstraints {
             $0.width.equalTo(buttonWidth())
         }
     }
     
-    func createAndSetupDoubleButton(into stackView: UIStackView, withTitle title: String, color: UIColor, font: String, fontSize: CGFloat, titleColor: UIColor) {
+    func createAndSetupDoubleButton(into stackView: UIStackView, withTitle title: String, color: UIColor, font: String, fontSize: CGFloat, titleColor: UIColor, colorOfTap: UIColor) {
         let doubleButton = UIButton()
-        let button = createButton(withTitle: title, color: color, font: font, fontSize: fontSize, titleColor: titleColor)
+        doubleButton.clipsToBounds = true
+        let button = createButton(withTitle: title, color: .clear, font: font, fontSize: fontSize, titleColor: titleColor, colorOfTap: colorOfTap)
         button.isUserInteractionEnabled = false
         doubleButton.addSubview(button)
         button.snp.makeConstraints {
@@ -203,17 +208,21 @@ class ViewController: UIViewController {
         doubleButton.backgroundColor = color
         doubleButton.addTarget(self, action: #selector(handler), for: .touchUpInside)
         doubleButton.setTitle("0", for: .normal)
+        doubleButton.setBackgroundImage(UIImage(color: colorOfTap), for: .highlighted)
+        doubleButton.setBackgroundImage(UIImage(color: color), for: .normal)
         doubleButton.setTitleColor(.clear, for: .normal)
         stackView.addArrangedSubview(doubleButton)
     }
     
-    func createButton(withTitle title: String, color: UIColor, font: String, fontSize: CGFloat, titleColor: UIColor) -> UIButton {
+    func createButton(withTitle title: String, color: UIColor, font: String, fontSize: CGFloat, titleColor: UIColor, colorOfTap: UIColor) -> UIButton {
         let button = UIButton()
+        button.clipsToBounds = true
         button.layer.cornerRadius = buttonWidth() / 2
         button.titleLabel?.font = UIFont(name: font, size: fontSize)
         button.setTitleColor(titleColor, for: .normal)
         button.setTitle(title, for: .normal)
-        button.backgroundColor = color
+        button.setBackgroundImage(UIImage(color: colorOfTap), for: .highlighted)
+        button.setBackgroundImage(UIImage(color: color), for: .normal)
         button.addTarget(self, action: #selector(handler), for: .touchUpInside)
         return button
     }
@@ -242,7 +251,6 @@ class ViewController: UIViewController {
             } else {
                 currencyTextField.text = spacingFormat((textField.text!.doubleValue / currency!.rates.USD).stringValue)
             }
-            //currencyTextField.text = (secondOperand.doubleValue * currency!.rates.USD).stringValue
             
         } else if "􀅿􀅾􀅼􀅽".contains(value) {
             firstOperand = calculate(firstOperand.doubleValue, secondOperand.doubleValue, operation).stringValue
@@ -380,3 +388,17 @@ extension Double {
         }
     }
 }
+
+public extension UIImage {
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+      }
+    }
